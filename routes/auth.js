@@ -1,25 +1,9 @@
-const authRouter = require("express").Router();
-const { login } = require("../controllers");
-const { findAllUsers,
-    createUser,
-    checkIsUserExists,
-    checkEmptyNameAndEmailAndPassword,
-    hashPassword } = require('../middlewares');
+const authRouter = require('express').Router();
 
-const { sendUserCreated } = require('../controllers');
+const { login } = require('../controllers/auth.js');
+// const { checkAuth } = require("../middlewares/auth.js");
 
-
-authRouter.post("/auth/login", login);
-
-authRouter.post(
-    "/registration",
-    findAllUsers,
-    checkIsUserExists,
-    checkEmptyNameAndEmailAndPassword,
-    hashPassword,
-    createUser,
-    login,
-    sendUserCreated
-);
+authRouter.post('/auth/login', login);
+// authRouter.get("/auth/me", checkAuth, sendMe);
 
 module.exports = authRouter;

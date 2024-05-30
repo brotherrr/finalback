@@ -1,45 +1,52 @@
 const gamesRouter = require('express').Router();
 
-const { findAllGames,
-    createGame,
-    findGameById,
-    updateGame,
-    deleteGame,
-    checkEmptyFields,
-    checkIfUsersAreSafe,
-    checkIfCategoriesAvaliable,
-    checkIsGameExists,
-    checkAuth, 
-    checkIsVoteRequest} = require('../middlewares');
+const { checkAuth } = require('../middlewares/auth.js');
 
-const { sendAllGames,
-    sendGameCreated,
-    sendGameById,
-    sendGameUpdated,
-    sendGameDeleted } = require('../controllers');
+const {
+  createGame,
+  findAllGames,
+  findGameById,
+  updateGame,
+  deleteGame,
+  checkEmptyFields,
+  checkIfUsersAreSafe,
+  checkIfCategoriesAvaliable,
+  checkIsGameExists,
+  checkIsVoteRequest,
+} = require('../middlewares/games');
+const {
+  sendGameCreated,
+  sendAllGames,
+  sendGameById,
+  sendGameUpdated,
+  sendGameDeleted,
+} = require('../controllers/games');
 
+gamesRouter.post(
+  '/games',
+  checkAuth,
+  checkEmptyFields,
+  checkIfCategoriesAvaliable,
+  findAllGames,
+  checkIsGameExists,
+  createGame,
+  sendGameCreated,
+);
 gamesRouter.get('/games', findAllGames, sendAllGames);
-
-gamesRouter.post("/games", findAllGames,
-    checkIsGameExists,
-    checkIfCategoriesAvaliable,
-    checkEmptyFields,
-    checkAuth,
-    createGame,
-    sendGameCreated);
-
-gamesRouter.get("/games/:id", findGameById, sendGameById);
-
-gamesRouter.put("/games/:id",
-    findGameById,
-    checkIsVoteRequest,
-    checkIfUsersAreSafe,
-    checkIfCategoriesAvaliable,
-    checkEmptyFields,
-    checkAuth,
-    updateGame,
-    sendGameUpdated);
-
-gamesRouter.delete("/games/:id", checkAuth, deleteGame, sendGameDeleted);
+gamesRouter.get('/games/:id', findGameById, sendGameById);
+gamesRouter.put(
+  '/games/:id',
+  checkAuth,
+  checkIsVoteRequest,
+  checkEmptyFields,
+  findGameById,
+  checkIfUsersAreSafe,
+  checkIfCategoriesAvaliable,
+  findAllGames,
+  checkIsGameExists,
+  updateGame,
+  sendGameUpdated,
+);
+gamesRouter.delete('/games/:id', checkAuth, deleteGame, sendGameDeleted);
 
 module.exports = gamesRouter;

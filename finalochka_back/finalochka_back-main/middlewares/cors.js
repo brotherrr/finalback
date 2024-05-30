@@ -1,8 +1,8 @@
 const allowedCors = [
-    'https://pindie11.nomoredomainswork.ru',
-    'http://pindie11.nomoredomainswork.ru',
-    'https://pindie10.nomoredomainswork.ru',
-    'http://pindie10.nomoredomainswork.ru',
+    'https://brotherspindie.nomorepartiesco.ru',
+    'http://brotherspindie.nomorepartiesco.ru',
+    'https://brotherpindie.nomorepartiesco.ru',
+    'http://brotherpindie.nomorepartiesco.ru',
     'http://localhost:3001',
     'http://localhost:3000',
 ];
